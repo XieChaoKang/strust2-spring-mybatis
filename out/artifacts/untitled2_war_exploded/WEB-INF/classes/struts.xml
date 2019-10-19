@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <!-- 配置常量 -->
+    <!-- 配置开发模式 -->
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.convention.package.locators" value="action"/>
+
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+
+    <constant name="struts.objectFactory" value="spring"/>
+
+    <package name="Admin" extends="struts-default,json-default">
+
+        <action name="AdminLogin" class="action.AdminAction.AdminLogin" method="execute">
+            <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
+            <result name="error">/WarehouseAdmin/Admin_login.jsp</result>
+        </action>
+
+        <action name="Admin_delete" class="action.AdminAction.Admin_Goods_warehouse_de" method="execute">
+            <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
+            <result name="error">/WarehouseAdmin/Admin_delete.jsp</result>
+        </action>
+
+        <action name="AllGW" class="action.AdminAction.AllIGW" method="test">
+          <!--  <result name="success" >/WarehouseAdmin/SelectAllItem.jsp</result>-->
+            <result name="success" type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+        <action name="AllItem" class="action.AdminAction.AllItem" method="test">
+            <result name="success" type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
+        <action name="QueryAllItemByid" class="action.AdminAction.QueryItemByid" method="execute">
+            <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
+            <result name="error">/WarehouseAdmin/Admin_index.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="Buyer" extends="struts-default,json-default">
+        <!-- 全局json -->
+    <global-results><result name="success" type="json"><param name="root">jsonObject</param></result></global-results>
+
+        <action name="Buyer_Login" class="action.BuyerAction.BuyerLogin" method="execute">
+           <!-- <result name="success">/Buyer/Buyer_index.jsp</result>
+            <result name="error">/Buyer/Buyer_Login.html</result>-->
+        </action>
+
+        <action name="insert" class="action.BuyerAction.Buyer_Goods_warehouse_in" method="execute">
+            <!--<result name="success">/Buyer/s.jsp</result>
+            <result name="error">/Buyer/Buyer_insert.html</result>-->
+        </action>
+    </package>
+
+
+
+</struts>

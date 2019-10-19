@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <script>
+        layui.use('form', function(){
+            var form = layui.form;
+            var $ = layui.jquery;
+            form.on('submit(save)', function(data){
+                var loading = layer.load(0,{shade:false});
+
+                //提交数据到后台处理
+                $.post('insert.action',data.field,function(data){
+                 //   console.log(data);
+                    if(data.count > 0){
+                        layer.close(loading);
+                        //表格页面重载
+                        window.parent.location.reload();
+                        layer.msg('添加成功！');
+                        //关闭弹出层
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+<form class="layui-form  "  id="add-form"  action="" >
+    <div class="layui-form-item" >
+        <label class="layui-form-label" style="width: 100px" >入库单编号</label>
+        <div class="layui-input-block">
+            <input type="text" id="number" name="number" required style="width: 240px"  lay-verify="required" placeholder="请输入入库单编号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">日期</label>
+        <div class="layui-input-block">
+            <input type="text" id="data" name="data" required  style="width: 240px" lay-verify="required" placeholder="请输入日期" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">仓库编号</label>
+        <div class="layui-input-block">
+            <input type="text" id="warehouse_number" name="warehouse_number" required  style="width: 240px" lay-verify="required" placeholder="请输入仓库编号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">物品编号</label>
+        <div class="layui-input-block">
+            <input type="text" id="item_number" name="item_number" required style="width: 240px;" lay-verify="required" placeholder="请输入物品编号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px">数量</label>
+        <div class="layui-input-block">
+            <textarea name="quantity" id="quantity" required style="width: 240px;" lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-textarea "></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block "style="text-align: center;width: 200px;" >
+            <button class="layui-btn" lay-submit lay-filter="save" >提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary" id="closeBtn" >重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#loginBtn').click(function () {
+                var id = $('#name').val();
+                var password = $('#password').val();
+                console.log(id);
+                console.log(password);
+                $.ajax({
+                    type:"post",
+                    url:"Buyer_Login.action",
+                    data:{
+                        "buyer.id":id,
+                        "buyer.password":password
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if (data != null && data != "") window.location.href="Buyer_index.html";
+                        else {
+                            /*var $url = "${pageContext.request.contextPath}"+"Buyer/Buyer_index.jsp";
+                            $(window).attr('location',$url);*/
+                            $(window).attr("登录是被！！"+"\n"+"请检查账号和密码是否正确！！");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<form id="login"  method="post">
+<table>
+    <tr>
+        <td>id:</td>
+        <td><input type="text" name="id" id="name"></td>
+    </tr>
+    <tr>
+        <td>psw:</td>
+        <td><input type="password" name="password" id="password"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="button" value="login" id="loginBtn"/></td>
+    </tr>
+</table>
+</form>
+<br><br>
+
+</body>
+</html>

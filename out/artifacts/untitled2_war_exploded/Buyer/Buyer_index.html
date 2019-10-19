@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"/>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                async:true,
+                dataType:"json",
+                type:"post",
+                url:"/getBuyer",
+                success:function(data){
+                    console.log(data);
+                    document.getElementsByTagName('b')[0].innerHTML=data;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td width="74%" height="38" class="admin_txt">管理员：<b></b>您好,感谢登陆使用！</td>
+    </tr>
+</table>
+</body>
+</html>
