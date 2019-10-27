@@ -17,8 +17,17 @@
     <package name="Admin" extends="struts-default,json-default">
 
         <action name="AdminLogin" class="action.AdminAction.AdminLogin" method="execute">
-            <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
-            <result name="error">/WarehouseAdmin/Admin_login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">jsonObject</param>
+            </result>
+        </action>
+
+        <action name="AdminRegister" class="action.AdminAction.AdminRegister" method="execute">
+            <!--<result name="success">/WarehouseAdmin/Admin_index.jsp</result>
+            <result name="error">/WarehouseAdmin/Admin_regist.html</result>-->
+            <result name="success" type="json">
+                <param name="root">jsonObject</param>
+            </result>
         </action>
 
         <action name="Admin_delete" class="action.AdminAction.Admin_Goods_warehouse_de" method="execute">
@@ -39,6 +48,12 @@
             </result>
         </action>
 
+        <action name="AllWarehouse" class="action.AdminAction.AllWarehouse" method="execute">
+            <result name="success" type="json">
+                <param name="root">json</param>
+            </result>
+        </action>
+
         <action name="QueryAllItemByid" class="action.AdminAction.QueryItemByid" method="execute">
             <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
             <result name="error">/WarehouseAdmin/Admin_index.jsp</result>
@@ -48,17 +63,24 @@
 
     <package name="Buyer" extends="struts-default,json-default">
         <!-- 全局json -->
-    <global-results><result name="success" type="json"><param name="root">jsonObject</param></result></global-results>
+    <global-results>
+        <result name="success" type="json">
+            <param name="root">jsonObject</param>
+        </result>
+    </global-results>
 
         <action name="Buyer_Login" class="action.BuyerAction.BuyerLogin" method="execute">
-           <!-- <result name="success">/Buyer/Buyer_index.jsp</result>
-            <result name="error">/Buyer/Buyer_Login.html</result>-->
+
         </action>
 
         <action name="insert" class="action.BuyerAction.Buyer_Goods_warehouse_in" method="execute">
-            <!--<result name="success">/Buyer/s.jsp</result>
-            <result name="error">/Buyer/Buyer_insert.html</result>-->
+
         </action>
+
+        <action name="Insert_newItem" class="action.BuyerAction.Insert_newItem" method="execute">
+
+        </action>
+
     </package>
 
 

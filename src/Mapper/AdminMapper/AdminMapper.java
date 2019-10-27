@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface AdminMapper {
     Admin AdminLogin(int id);
+    int AdminRegister(Admin admin);
     List<Item> QueryAllItem();
     List<Goods_warehouse> QueryAllGW();
     Warehouse QueryItemById(int id);

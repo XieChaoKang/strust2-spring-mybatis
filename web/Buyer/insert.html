@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>采购员采购物品入库1</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
     <script>
@@ -23,6 +23,9 @@
                         //关闭弹出层
                         var index = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(index);
+                    }
+                    else {
+                        window.location.href="Buyer_index.html";
                     }
                 });
                 return false;

@@ -6,12 +6,18 @@ import java.util.List;
 public class Warehouse {
     private int id;
     private String name;
-    private String type;//仓库类型
-    private String inventory_amount;//库存金额
-    //物品
-    private Item item;//一对一关联查询
 
-    private List<Item> itemList;//一对多关联查询
+    //仓库类型
+    private String type;
+
+    // 库存金额
+    private String inventory_amount;
+
+    //物品 一对一关联查询
+    private Item item;
+
+    //一对多关联查询
+    private List<Item> itemList;
 
     public List<Item> getItemList() {
         return itemList;

@@ -1,7 +1,7 @@
 package action.AdminAction;
 
 import Model.Warehouse;
-import Service.AdminService.AdminServiceImp.QueryItemByidImpl;
+import Service.AdminService.AdminServiceImp.QueryImpl;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +23,20 @@ public class QueryItemByid extends ActionSupport {
     }
 
     @Autowired
-    QueryItemByidImpl queryItemByidImpl;
+    QueryImpl queryImpl;
 
-    public QueryItemByidImpl getQueryItemByidImpl() {
-        return queryItemByidImpl;
+    public QueryImpl getQueryImpl() {
+        return queryImpl;
     }
 
-    public void setQueryItemByidImpl(QueryItemByidImpl queryItemByidImpl) {
-        this.queryItemByidImpl = queryItemByidImpl;
+    public void setQueryImpl(QueryImpl queryImpl) {
+        this.queryImpl = queryImpl;
     }
 
     @Override
     public String execute() throws Exception {
         String result;
-        warehouse = queryItemByidImpl.QueryItemById(warehouse);
+        warehouse = queryImpl.QueryItemById(warehouse);
         if (warehouse != null)
         {
             result = SUCCESS;

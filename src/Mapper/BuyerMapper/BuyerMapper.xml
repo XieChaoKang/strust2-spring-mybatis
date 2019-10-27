@@ -3,7 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Mapper.BuyerMapper.BuyerMapper">
+
+    <!-- 采购员登录 -->
     <select id="BuyerLogin" resultType="Buyer" parameterType="Buyer">
         SELECT * FROM Buyer WHERE id = #{id} and password = #{password}
     </select>
+
+    <insert id="Insert_new_Item" parameterType="Item">
+        INSERT INTO Item VALUES (#{id},#{name},#{measurement},#{warehouse_number},#{quantity},#{price})
+    </insert>
+
 </mapper>

@@ -6,6 +6,8 @@ import Model.Warehouse;
 import Service.AdminService.AdminServiceImp.AdminLoginImp;
 import Service.AdminService.AdminServiceImp.QueryAllWarehouseImpl;
 import Service.AdminService.AdminServiceImp.Seil_InsepectionImpl;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,26 @@ import java.util.List;
 @Controller
 public class AdminLogin extends ActionSupport{
 
-   // private HttpServletRequest request = ServletActionContext.getRequest();
+    //返回JSON数据
+    private JSONObject jsonObject;
+    public JSONObject getJsonObject() { return jsonObject; }
+    public void setJsonObject(JSONObject jsonObject) { this.jsonObject = jsonObject; }
+
+
+    // private HttpServletRequest request = ServletActionContext.getRequest();
 
    // SendMailTest sendMailTest = new SendMailTest();
     TestSendMail testSendMail = new TestSendMail();
 
     Admin admin = new Admin();
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
 
     @Autowired
    AdminLoginImp adminLoginImp;
@@ -34,14 +50,6 @@ public class AdminLogin extends ActionSupport{
 
     public void setAdminLoginImp(AdminLoginImp adminLoginImp) {
         this.adminLoginImp = adminLoginImp;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
     }
 
     @Autowired
@@ -69,22 +77,15 @@ public class AdminLogin extends ActionSupport{
     @Override
     public String execute() throws Exception {
       //  Self_Inspection();
-        String result;
         admin = adminLoginImp.AdminLogin(admin);
-        if (admin != null)
+        System.out.println(admin);
+        jsonObject = JSON.parseObject(JSON.toJSONString(admin));
+        if (jsonObject != null)
         {
-            result = SUCCESS;
             ServletActionContext.getRequest().getSession().setAttribute("admin",admin);
         }
 
-        else
-        {
-            String msg = "登录失败！！"+"\n"+"请检查账号或密码是否正确！！";
-            result = ERROR;
-            ServletActionContext.getRequest().getSession().setAttribute("msg",msg);
-        }
-
-        return result;
+        return SUCCESS;
     }
 
     //仓库物品自检

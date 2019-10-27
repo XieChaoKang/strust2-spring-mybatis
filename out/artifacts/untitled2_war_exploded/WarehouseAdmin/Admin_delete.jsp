@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>管理员删除仓库内物品信息</title>
+    <title>管理员删除物品入库信息</title>
 </head>
 <body>
 <form id="delete" action="Admin_delete.action" method="post">

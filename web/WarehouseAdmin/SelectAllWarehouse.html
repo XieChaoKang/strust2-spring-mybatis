@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layui表格查询所有仓库信息</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+<script>
+    layui.use('table', function(){
+        var table = layui.table,
+            form=layui.form;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,even:true
+            ,url: 'action/AdminAction/AllWarehouse.action' //数据接口
+            ,page: true //开启分页
+            ,limit:10
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'name', title: '仓库名字', width:177}
+                ,{field: 'type', title: '仓库类型', width:177, sort: true}
+                ,{field: 'inventory_amount', title: '库存金额', width:177}
+            ]]
+        });
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,14 +1,21 @@
+/**
+ * @author 谢朝康
+ * @date 2019/10/26 17:56
+ */
 package Service.BuyerService.BuyerServiceImpl;
 
 import Mapper.Goods_WarehouseMapper.Goods_WarehouseMapper;
-import Model.Goods_warehouse;
-import Service.BuyerService.Buyer_Goods_warehouse;
+import Model.Item;
+import Service.BuyerService.UpdateItemByid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//物品入库订单
+//采购员入库物品 该物品存在于仓库
 @Service
-public class Buyer_Goods_warehouseImpl implements Buyer_Goods_warehouse {
+public class UpdateItemByidImpl implements UpdateItemByid {
+
+    @Autowired
+    Goods_WarehouseMapper goods_warehouseMapper;
 
     public Goods_WarehouseMapper getGoods_warehouseMapper() {
         return goods_warehouseMapper;
@@ -18,12 +25,8 @@ public class Buyer_Goods_warehouseImpl implements Buyer_Goods_warehouse {
         this.goods_warehouseMapper = goods_warehouseMapper;
     }
 
-    @Autowired
-    private Goods_WarehouseMapper goods_warehouseMapper;
-
-
     @Override
-    public int insert(Goods_warehouse goods_warehouse) {
-        return goods_warehouseMapper.add(goods_warehouse);
+    public int UpdateItem(Item item) {
+        return goods_warehouseMapper.UpdateItem(item);
     }
 }

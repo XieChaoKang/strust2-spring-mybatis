@@ -12,11 +12,17 @@
         select * from Admin where id = #{id}
     </select>
 
+    <!-- 管理员注册 -->
+    <insert id="AdminRegister" parameterType="Admin">
+        INSERT INTO Admin VALUES (#{id},#{password})
+    </insert>
+
     <!-- 查询所有物品 -->
     <select id="QueryAllItem" resultType="Item">
         SELECT * FROM Item
     </select>
 
+    <!-- 查询物品入库信息 -->
     <select id="QueryAllGW" resultType="Goods_warehouse">
         SELECT * FROM Goods_warehouse
     </select>
@@ -75,6 +81,7 @@
         SELECT * FROM Warehouse
     </select>
 
+    <!-- 根据仓库id 查询该仓库内物品信息 -->
     <select id="QueryItemByW_num" resultType="Item" parameterType="int">
         SELECT * FROM Item WHERE warehouse_number = #{warehouse_number}
     </select>

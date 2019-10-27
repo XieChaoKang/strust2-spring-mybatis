@@ -12,4 +12,12 @@
         DELETE FROM Goods_warehouse WHERE number = #{number}
     </delete>
 
+    <select id="QueryItemByid" resultType="Item" parameterType="int">
+        SELECT * FROM Item WHERE id = #{item_number}
+    </select>
+
+    <update id="UpdateItem" parameterType="Item">
+        UPDATE Item SET quantity = #{quantity} where id = #{id}
+    </update>
+
 </mapper>

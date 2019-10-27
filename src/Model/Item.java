@@ -9,6 +9,29 @@ public class Item {
     private int quantity;//数量
     private int price;//单价
 
+    public Item() {
+    }
+
+    public Item(int id, int quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
+    public Item(String name, String measurement, int price) {
+        this.name = name;
+        this.measurement = measurement;
+        this.price = price;
+    }
+
+    public Item(int id, String name, String measurement, int warehouse_number, int quantity, int price) {
+        this.id = id;
+        this.name = name;
+        this.measurement = measurement;
+        this.warehouse_number = warehouse_number;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }

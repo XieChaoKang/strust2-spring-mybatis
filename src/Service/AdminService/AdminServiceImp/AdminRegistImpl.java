@@ -1,14 +1,13 @@
 package Service.AdminService.AdminServiceImp;
 
 import Mapper.AdminMapper.AdminMapper;
-import Model.Warehouse;
-import Service.AdminService.QueryItemByid;
+import Model.Admin;
+import Service.AdminService.AdminRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//根据仓库id查询该仓库内物品信息（一对一关联查询）
 @Service
-public class QueryItemByidImpl implements QueryItemByid {
+public class AdminRegistImpl implements AdminRegister {
 
     @Autowired
     AdminMapper adminMapper;
@@ -22,7 +21,7 @@ public class QueryItemByidImpl implements QueryItemByid {
     }
 
     @Override
-    public Warehouse QueryItemById(Warehouse warehouse) {
-        return adminMapper.QueryItemById(warehouse.getId());
+    public int AdminRegist(Admin admin) {
+        return adminMapper.AdminRegister(admin);
     }
 }
