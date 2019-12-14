@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>查询所有物品信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+<!--按钮-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+    </div>
+</script>
+<script type="text/html" id="t">
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id='i_name' name="i_name" lay-verify="required" placeholder="请输入物品名称" autocomplete="true" class="layui-input">
+            </div>
+            <button class="layui-btn layui-btn-sm" lay-event="sel">查询</button>
+        </div>
+    </div>
+</script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table,
+            form=layui.form;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,toolbar: '#t'
+            ,height: 400
+            ,even:true
+            ,url: 'action/AdminAction/AllItem.action' //数据接口
+            ,page: true //开启分页
+            ,id:'tests'
+            ,limit:10
+            ,cols: [[ //表头{type:'checkbox'}
+                {field: 'id', title: 'ID', width:80, sort: true}
+                ,{field: 'name', title: '物品名字', width:100}
+                ,{field: 'measurement', title: '计量单位', width:100}
+                ,{field: 'warehouse_number', title: '仓库编号', width:100}
+                ,{field: 'quantity', title: '数量', width: 80,sort: true}
+                ,{field: 'price', title: '单价', width: 80,sort: true}
+                ,{field:'right',height:80, width:300, title: '操作', toolbar:'#toolbarDemo'}
+            ]]
+        });
+
+        //监听行单击事件
+        /*table.on('row(test)', function(obj){
+            // console.log(obj.tr) //得到当前行元素对象
+            //console.log(obj.data)
+            var data = obj.data;
+           // layer.msg("物品："+data.name); //得到当前行数据
+           /!* json = JSON.stringify(data);
+            layui.use('layer', function () {
+                layer.msg(json);
+                layer.open({
+                    title: '修改物品信息',
+                    maxmin: true,
+                    type: 2,
+                    content: 'UpdateItem.html',
+                    area: ['500px', '400px']
+                });
+            });*!/
+        });
+
+        //监听事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    layer.msg('添加');
+                    break;
+                case 'delete':
+                   // layer.msg('删除');
+                    console.log(checkStatus.data);
+                    var data = checkStatus.data;
+                    if(data.length!=0){
+
+                        var ItemList = new Array(data.length);
+
+                        for(var i =0;i<data.length;i++){
+                            layer.msg(data[i].name);
+                            var Item = {
+                                "id":data[i].id
+                            };
+                            ItemList[i] = Item;
+                        }
+                        $.post(
+                            "${pageContext.request.contextPath}/AllItem.action",
+                            JSON.stringify(ItemList),
+                            function (data) {
+                                layer.msg("成功删除:"+data+"名!",{icon:"6"});
+                                table.reload()
+                            }
+                        )
+                    }
+                    break;
+                case 'update':
+                    /!*layer.msg('编辑');*!/
+                    var data = checkStatus.data;
+                    layer.msg("物品："+data.name); //得到当前行数据
+
+                    //发送Json数据给子页面
+                    json = JSON.stringify(data);
+                    layui.use('layer', function () {
+                        layer.open({
+                            title: '修改物品信息',
+                            maxmin: true,
+                            type: 2,
+                            content: 'UpdateItem.html',
+                            area: ['500px', '400px']
+                        });
+                    });
+                    break;
+            };
+        });
+
+        //监听锁定操作
+        form.on('checkbox(lockDemo)', function(obj){
+            console.log(obj);
+            layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+            layer.msg(this.name);
+        });*/
+
+        //监听行内按钮点击事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            console.log(data);
+            layer.msg(data.name);
+            var layEvent = obj.event; //获得 lay-event 对应的值
+            switch(obj.event){
+                case 'delete':
+                   // layer.msg('删除');
+                    layer.confirm('确定删除ID为：'+data.id+"的物品吗?",function(index){
+                        $.ajax({
+                            type:"post",
+                            url:"/De_ItemById.action",
+                            data:{'id':data.id},//向服务端发送删除的id
+                            dataType:"json",
+                            success:function(data){
+                                if (data.count > 0) {
+                                    layer.msg('删除成功');
+                                    window.parent.location.reload();
+                                    layer.close(index);
+                                }
+                            }
+                        });
+                        return false;
+                        //layer.close(index);
+                    });
+                    break;
+                case 'update':
+                    json = JSON.stringify(data);
+                    layui.use('layer', function () {
+                        //layer.msg(json);
+                        layer.open({
+                            title: '修改物品信息',
+                            maxmin: true,
+                            type: 2,
+                            content: 'UpdateItem.html',
+                            area: ['500px', '400px']
+                        });
+                    });
+                    break;
+            }
+
+        });
+        
+        table.on('toolbar(test)',function (obj) {
+            switch (obj.event){
+                case 'sel':
+                    var i_name = $("#i_name").val();
+                    table.reload('tests',{
+                        page:{
+                            curr:1 //从第一页开始重载
+                        },
+                        where:{
+                            name:i_name
+                        }
+                    });
+                    break;
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>

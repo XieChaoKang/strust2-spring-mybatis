@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>layui表格查询所有物品信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+<!--按钮-->
+<script type="text/html" id="t">
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id='i_name' name="i_name" lay-verify="required" placeholder="请输入物品名称" autocomplete="true" class="layui-input">
+            </div>
+            <button class="layui-btn layui-btn-sm" lay-event="sel">查询</button>
+        </div>
+    </div>
+</script>
+
+<script>
+    layui.use('table', function() {
+        var table = layui.table,
+            form = layui.form;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,toolbar: '#t'
+            , height: 312
+            , even: true
+            , url: 'action/BuyerAction/Buyer_AllItem.action' //数据接口
+            , page: true //开启分页
+            , limit: 10
+            ,id:'tests'
+            , cols: [[ //表头{type:'checkbox'}
+                {field: 'id', title: 'ID', width: 80, sort: true}
+                , {field: 'name', title: '物品名字', width: 80}
+                , {field: 'measurement', title: '计量单位', width: 80}
+                , {field: 'warehouse_number', title: '仓库编号', width: 80}
+                , {field: 'quantity', title: '数量', width: 80, sort: true}
+                , {field: 'price', title: '单价', width: 80, sort: true}
+            ]]
+        });
+
+        table.on('toolbar(test)',function (obj) {
+            switch (obj.event){
+                case 'sel':
+                    var i_name = $("#i_name").val();
+                    table.reload('tests',{
+                        page:{
+                            curr:1 //从第一页开始重载
+                        },
+                        where:{
+                            name:i_name
+                        }
+                    });
+                    break;
+            }
+        });
+
+    });
+
+
+</script>
+
+</body>
+</html>

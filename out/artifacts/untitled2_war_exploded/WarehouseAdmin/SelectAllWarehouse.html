@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询所有仓库信息</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo1">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+    </div>
+</script>
+
+<script>
+    layui.use('table', function(){
+        var table = layui.table,
+            form=layui.form;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,even:true
+            ,url: 'action/AdminAction/AllWarehouse.action' //数据接口
+            ,page: true //开启分页
+            ,limit:10
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'name', title: '仓库名字', width:120}
+                ,{field: 'type', title: '仓库类型', width:120, sort: true}
+                ,{field: 'inventory_amount', title: '库存金额', width:177}
+                ,{field:'right',height:80, width:300, title: '操作', toolbar:'#toolbarDemo1'}
+            ]]
+        });
+
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            console.log(data);
+            layer.msg(data.name);
+            var layEvent = obj.event; //获得 lay-event 对应的值
+            switch(obj.event){
+                case 'delete':
+                    // layer.msg('删除');
+                    layer.confirm('确定删除ID为：'+data.id+"的仓库吗?",function(index){
+                        $.ajax({
+                            type:"post",
+                            url:"/De_WhById.action",
+                            data:{'id':data.id},//向服务端发送删除的id
+                            dataType:"json",
+                            success:function(data){
+                                if (data.count > 0) {
+                                    layer.msg('删除成功');
+                                    window.parent.location.reload();
+                                    layer.close(index);
+                                }
+                            }
+                        });
+                        return false;
+                    });
+                    break;
+                case 'update':
+                    json = JSON.stringify(data);
+                    layui.use('layer', function () {
+                        //layer.msg(json);
+                        layer.open({
+                            title: '修改仓库信息',
+                            maxmin: true,
+                            type: 2,
+                            content: 'updateWh.html',
+                            area: ['500px', '400px']
+                        });
+                    });
+                    break;
+            }
+
+        });
+
+    });
+</script>
+
+</body>
+</html>
