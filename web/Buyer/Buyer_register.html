@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>采购员注册</title>
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#loginBtn').click(function () {
+                var id = $('#id').val();
+                var password = $('#password').val();
+                console.log(id);
+                console.log(password);
+                var reg3=/^[0-9]{1,4}$/;
+                if (reg3.test(id) && password.length > 0) {
+                    $.ajax({
+                        type: "post",
+                        url: "BuyerRegister.action",
+                        data: {
+                            "buyer.id": id,
+                            "buyer.password": password
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.count > 0) window.location.href = "Buyer_Login.html";
+                            else {
+                                alert("注册失败！！" + "\n" + "该用户已存在！！");
+                            }
+                        }
+
+                    });
+                }
+                else {
+                    alert("账号只能由数字组成而且长度不能超过4位！！！"+"\n"+"密码不能为空");
+                }
+            });
+        });
+    </script>
+</head>
+<body background="/images/bgcon.jpg" style="background-position: top;">
+<p class="tips" style="text-align: center;font-size: 8ch">采购员注册</p>
+<form id="login" method="post">
+    <table align="center">
+        <tr>
+            <td>账号：</td>
+            <td><input style="width:30ch;height: 5ch" type="text" name="id" id="id" ></td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input style="width:30ch;height: 5ch" type="password" name="password" id="password" ></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input style="width: 20ch;height: 6ch"  type="button" value="注册" id="loginBtn"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

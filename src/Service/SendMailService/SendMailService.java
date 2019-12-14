@@ -28,7 +28,7 @@ public class SendMailService implements InterSendMail {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
-            messageHelper.setFrom("508540007@qq.com");//发件人
+            messageHelper.setFrom("a16626583775@163.com");//发件人
             messageHelper.setTo(recipient);
             messageHelper.setSubject(subject);
             messageHelper.setText(content,true);//true代表支持html格式
@@ -39,15 +39,15 @@ public class SendMailService implements InterSendMail {
     }
 
     @Override
-    public void sendHtmlEmail(String recipient, String subject, String content) throws MessagingException, Exception {
+    public void sendHtmlEmail(String recipient, String subject, String content) throws Exception {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
-            messageHelper.setFrom("xx@qq.com");//发件人
+            messageHelper.setFrom("a16626583775@qq.com");//发件人
             messageHelper.setTo(recipient);
             messageHelper.setSubject(subject);
             messageHelper.setText(content,true);
-            mimeMessage.setRecipients(Message.RecipientType.CC,"xx@qq.com");//抄送人
+            mimeMessage.setRecipients(Message.RecipientType.CC,"a16626583775@qq.com");//抄送人
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
             e.printStackTrace();

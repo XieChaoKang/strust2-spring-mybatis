@@ -1,12 +1,10 @@
 package action.BuyerAction;
 
 import Model.Buyer;
-import Service.BuyerService.BuyerServiceImpl.BuyerLoginImpl;
+import Service.BuyerService.BuyerServiceImpl.Buyer_login_Impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +16,20 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+//采购员登录 数据接口
 @Controller
 public class BuyerLogin extends ActionSupport{
 
     //返回json数据的映射
-    private JSONObject jsonObject;
-    public JSONObject getJsonObject() { return jsonObject; }
-    public void setJsonObject(JSONObject jsonObject) { this.jsonObject = jsonObject; }
+    private JSON json;
+
+    public JSON getJson() {
+        return json;
+    }
+
+    public void setJson(JSON json) {
+        this.json = json;
+    }
 
     Buyer buyer = new Buyer();
 
@@ -37,44 +42,35 @@ public class BuyerLogin extends ActionSupport{
     }
 
     @Autowired
-    BuyerLoginImpl buyerLoginImpl;
+    Buyer_login_Impl buyerLoginImpl;
 
-    public BuyerLoginImpl getBuyerLoginImpl() {
+    public Buyer_login_Impl getBuyerLoginImpl() {
         return buyerLoginImpl;
     }
 
-    public void setBuyerLoginImpl(BuyerLoginImpl buyerLoginImpl) {
+    public void setBuyerLoginImpl(Buyer_login_Impl buyerLoginImpl) {
         this.buyerLoginImpl = buyerLoginImpl;
     }
 
     @Override
     public String execute() throws Exception {
-
-        buyer = buyerLoginImpl.BuyerLogin(buyer);
+        int count;
+        buyer = buyerLoginImpl.Buyer_login(buyer);
         System.out.println(buyer);
-        jsonObject = JSON.parseObject(JSON.toJSONString(buyer));
-        if (jsonObject != null)
+
+        if (buyer != null)
         {
-            ServletActionContext.getRequest().getSession().setAttribute("buyer",buyer.getId());
+            count = 1;
         }
+        else {
+            count = 0;
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("count",count);
+        json = new JSONObject(map);
 
        return SUCCESS;
     }
 
-    @RequestMapping("/getBuyer")
-    public void getSession(HttpServletRequest request, HttpServletResponse response) {
-        //编码规范
-        response.setContentType("text/html;charset=utf-8");
-        response.setCharacterEncoding("utf-8");
-        //获取session值
-        HttpSession session = request.getSession();
-        Object user = session.getAttribute("buyer");
-        try {
-            PrintWriter out = response.getWriter();
-            out.write((String) user);
-        } catch (Exception e) {
-            System.out.println("Nothing session");
-        }
-    }
 
 }

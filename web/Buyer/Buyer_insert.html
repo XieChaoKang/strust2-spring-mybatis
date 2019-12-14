@@ -2,49 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>采购员采购物品入库2</title>
+    <title>采购员采购物品入库2 该物品是新物品</title>
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Btn").click(function () {
+                var num = $("#number").val();
+                var w_num = $("#W_number").val();
+                var w_i_num = $("#item_number").val();
+                var w_q = $("#quantity").val();
+                var i_name = $("#name").val();
+                var i_mea = $("#measurement").val();
+                var i_price = $("#price").val();
+                $.ajax({
+                    type:"post",
+                    url:"Insert_newItem.action",
+                    data:{
+                        "goodsWarehouse.number":num,
+                        "goodsWarehouse.warehouse_number":w_num,
+                        "goodsWarehouse.item_number":w_i_num,
+                        "goodsWarehouse.quantity":w_q,
+                        "item.name":i_name,
+                        "item.measurement":i_mea,
+                        "item.price":i_price
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if (data.count > 0) {
+                            alert("入库成功");
+                           $("#item")[0].reset();
+                        }
+                        else {
+                            alert("入库失败！！"+"\n"+"还仓库库存金额可能低于1000");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-<form id="login"  method="post" action="Insert_newItem.action">
+<form id="item"  method="post">
     <table>
         <tr>
             <td>物品入库单编号:</td>
-            <td><input type="text" name="goodsWarehouse.number"></td>
-        </tr>
-        <tr>
-            <td>入库日期:</td>
-            <td><input type="text" name="goodsWarehouse.data"></td>
+            <td><input type="text" name="number" id="number"></td>
         </tr>
         <tr>
             <td>仓库编号:</td>
-            <td><input type="text" name="goodsWarehouse.warehouse_number"></td>
+            <td><!--<input type="text" name="goodsWarehouse.warehouse_number">-->
+                <select id="W_number">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td>物品编号:</td>
-            <td><input type="text" name="goodsWarehouse.item_number"></td>
+            <td><input type="text" name="goodsWarehouse.item_number" id="item_number"></td>
         </tr>
         <tr>
             <td>物品数量:</td>
-            <td><input type="text" name="goodsWarehouse.quantity"></td>
+            <td><input type="text" name="goodsWarehouse.quantity" id="quantity"></td>
         </tr>
         <tr>
             <td>物品名字:</td>
-            <td><input type="text" name="item.name"></td>
+            <td><input type="text" name="item.name" id="name"></td>
         </tr>
-
         <tr>
             <td>计价单位:</td>
-            <td><input type="text" name="item.measurement"></td>
+            <td><input type="text" name="item.measurement" id="measurement"></td>
         </tr>
 
         <tr>
             <td>单价:</td>
-            <td><input type="text" name="item.price"></td>
+            <td><input type="text" name="item.price" id="price"></td>
         </tr>
 
         <tr>
             <td></td>
-            <td><input type="submit" value="login" /></td>
+            <td><input type="button" value="提交" id="Btn" /></td>
         </tr>
     </table>
 </form>

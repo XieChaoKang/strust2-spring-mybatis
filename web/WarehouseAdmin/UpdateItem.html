@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>修改物品信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script type="text/javascript" src="../JS/jquery-3.4.1.js"></script>
+    <script src="../layui/layui.js"></script>
+    <script src="../layui/layui.all.js"></script>
+</head>
+<body>
+
+<form class="layui-form" id="UpdateItemFrom">
+    <div class="layui-form-item">
+        <label class="layui-form-label">物品ID</label>
+        <div class="layui-input-inline">
+            <input type="text" name="id" id="id" required lay-verify="required" readonly=""  placeholder="不可编辑"  autocomplete="open"
+                   class="layui-input">
+        </div>
+
+    </div>
+    <div class="layui-form-item" >
+        <label class="layui-form-label">物品名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" id="name" required lay-verify="required"  placeholder="请输入物品名称" autocomplete="open"
+                   class="layui-input">
+        </div>
+
+    </div>
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">计量单位</label>
+        <div class="layui-input-inline">
+            <input type="text" name="measurement"  id="measurement" required lay-verify="required" placeholder="请输入物品计量单位"  autocomplete="open"
+                   class="layui-input">
+        </div>
+
+    </div>
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">仓库编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="warehouse_number"  id="warehouse_number" required lay-verify="required" placeholder="请输入物品仓库编号"  autocomplete="open"
+                   class="layui-input">
+        </div>
+
+    </div>
+
+    <div class="layui-form-item" >
+        <label class="layui-form-label">数量</label>
+        <div class="layui-input-inline">
+            <input type="text" name="quantity"  id="quantity" required lay-verify="required" placeholder="请输入物品单价"  autocomplete="open"
+                   class="layui-input">
+        </div>
+
+    </div>
+    <div class="layui-form-item" >
+        <label class="layui-form-label">单价</label>
+        <div class="layui-input-inline">
+            <input type="text" name="price"  id="price" required lay-verify="required" placeholder="请输入物品单价"  autocomplete="open"
+                   class="layui-input">
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn updateItem" lay-submit lay-filter="updateItem">立即提交</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    layui.use('form', function() {
+        var form = layui.form;
+        var layer = layui.layer;
+
+        $(document).ready(function(){
+
+            $(function () {
+                //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
+                var parent_json = eval('('+parent.json+')');
+                console.log(parent_json);
+                var id = parent_json.id;
+                var name = parent_json.name;
+                var measurement = parent_json.measurement;
+                var warehouse_number = parent_json.warehouse_number;
+                var quantity = parent_json.quantity;
+                var price = parent_json.price;
+
+                $('#id').val(id);
+                $('#name').val(name);
+                $('#measurement').val(measurement);
+                $('#warehouse_number').val(warehouse_number);
+                $('#quantity').val(quantity);
+                $('#price').val(price);
+            });
+
+            $('.updateItem').click(function(){
+                var id = $('#id').val();
+                var name = $('#name').val();
+                var measurement = $('#measurement').val();
+                var warehouse_number = $('#warehouse_number').val();
+                var quantity = $('#quantity').val();
+                var price = $('#price').val();
+                $.ajax({
+                    type:"post",
+                    url:"/Up_ItemById.action",
+                    data:{
+                        'item.id':id,
+                        'item.name':name,
+                        'item.measurement':measurement,
+                        'item.warehouse_number':warehouse_number,
+                        'item.quantity':quantity,
+                        'item.price':price
+                    },
+                    dataType:"json",
+                    success:function(data){
+                        if (data.count > 0) {
+                            layer.msg('修改成功');
+                            parent.layer.close();//关闭当前弹窗
+                            window.parent.location.reload();//父页面刷新
+                        }
+                    }
+                });
+                return false;
+
+                /*$.post(
+                    "",
+                    $('#UpdateItemFrom').serialize(),
+                    function (data) {
+                        if(data==0){
+                            layer.msg("修改失败~",{icon:"5"});
+                        }else if(data>0) {
+                            layer.msg("修改" + name + "的信息成功~", {icon: "6"});
+                            parent.location.reload(); // 父页面刷新
+                        }
+                    }
+
+                );*/
+            });
+
+        });
+
+    });
+</script>
+
+</body>
+</html>

@@ -10,45 +10,53 @@
             $('#loginBtn').click(function () {
                 var id = $('#name').val();
                 var password = $('#password').val();
+                var reg3=/^[0-9]{1,4}$/;
                 console.log(id);
                 console.log(password);
-                $.ajax({
-                    type:"post",
-                    url:"Buyer_Login.action",
-                    data:{
-                        "buyer.id":id,
-                        "buyer.password":password
-                    },
-                    dataType:"json",
-                    success:function (data) {
-                        if (data != null && data != "") window.location.href="Buyer_index.html";
-                        else {
-                            /*var $url = "${pageContext.request.contextPath}"+"Buyer/Buyer_index.jsp";
+                if (reg3.test(id) && password.length > 0) {
+                    $.ajax({
+                        type: "post",
+                        url: "Buyer_Login.action",
+                        data: {
+                            "buyer.id": id,
+                            "buyer.password": password
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.count > 0) window.location.href = "Buyer_index.html";
+                            else {
+                                /*var $url = "${pageContext.request.contextPath}"+"Buyer/Buyer_index.jsp";
                             $(window).attr('location',$url);*/
-                            $(window).attr("登录失败！！"+"\n"+"请检查账号和密码是否正确！！");
+                                alert("登录失败！！" + "\n" + "请检查账号和密码是否正确！！");
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else {
+                    alert("账号只能由数字组成而且长度不能超过4位！！！"+"\n"+"密码不能为空");
+                }
             });
         });
     </script>
 </head>
-<body>
+<body background="/images/bgcon.jpg" style="background-position: top;">
+<p class="tips" style="text-align: center;font-size: 8ch">采购员登陆</p>
 <form id="login"  method="post">
-<table>
-    <tr>
-        <td>id:</td>
-        <td><input type="text" name="id" id="name"></td>
-    </tr>
-    <tr>
-        <td>psw:</td>
-        <td><input type="password" name="password" id="password"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><input type="button" value="login" id="loginBtn"/></td>
-    </tr>
-</table>
+    <table align="center">
+        <tr>
+            <td>账号:</td>
+            <td><input type="text" name="id" id="name"></td>
+        </tr>
+        <tr>
+            <td>密码:</td>
+            <td><input type="password" name="password" id="password"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input style="width: 10ch;height: 6ch" type="button" value="登陆" id="loginBtn"></td>
+            <td><a href="Buyer_register.html">没有账号？去注册一个？</a></td>
+        </tr>
+    </table>
 </form>
 <br><br>
 

@@ -5,7 +5,7 @@ import Model.Admin;
 import Service.AdminService.AdminRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//service层 管理员注册
 @Service
 public class AdminRegistImpl implements AdminRegister {
 

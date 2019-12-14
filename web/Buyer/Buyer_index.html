@@ -1,29 +1,326 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="../JS/jquery-3.4.1.js"/>
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                async:true,
-                dataType:"json",
-                type:"post",
-                url:"/getBuyer",
-                success:function(data){
-                    console.log(data);
-                    document.getElementsByTagName('b')[0].innerHTML=data;
-                }
-            });
+
+<html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name=”renderer” content=”webkit” />
+<title>个人中心</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/JS/jquery-easyui-1.5.2/themes/gray/easyui.css">
+<script type="text/javascript" src="/JS/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="/JS/jquery-tab/tab.js"></script>
+<script type="text/javascript" src="/JS/jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+<style type="text/css">
+    .my_Left_menu{
+        width: 208px;
+        border: 1px solid #333333;
+        text-align: center;
+        float: left;
+    }
+    .myPersonal_tit{
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        display: block;
+        font-size: 16px;
+        color: #333333;
+        font-weight: 700;
+        border-bottom: 1px solid #e8e9ee;
+        /*background-color: #135f9d;*/
+    }
+
+    .my_Left_nav{
+        width: 100%;
+    }
+    .my_Left_nav a{
+        display: block;
+        height: 56px;
+        line-height: 56px;
+        font-size: 16px;
+        color: #333333;
+        border-left: 2px solid #333333;
+        transition: all .4s;
+        -moz-transition: all .4s;
+        -webkit-transition: all .4s;
+        -o-transition: all .4s;
+    }
+
+    .my_Left_nav a:hover,.leftMenu_on{
+        background-color: #cce9f7;
+        border-left: 2px solid #135f9d !important;
+    }
+
+    /*---------------------管理中心---------------------*/
+    .navBox{
+        cursor: pointer;
+        border-top: 1px solid #e8e9ee;
+    }
+    .navBox:first-child{
+        border-top:0;
+    }
+    .boxSize{
+        display: block;
+        font-size: 14px !important;
+    }
+    .navBox:hover .boxSize,.box_sizeOn{
+        background-color: #135f9d;
+        color: #333333;
+    }
+    .navBox:hover .ZJ_menu,.ZJ_menu_on{
+        background-color: #135f9d;
+        color: #333333;
+    }
+
+    .navMenu a{
+        display: block;
+        line-height: 56px;
+        font-size: 12px;
+        color: #333333;
+        transition: all .4s;
+        -moz-transition: all .4s;
+        -webkit-transition: all .4s;
+        -o-transition: all .4s;
+    }
+    .my_Left_nav .navBox{
+        display: block;
+        line-height: 56px;
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .noneBlock{
+        display: none;
+    }
+    /******************右侧页面样式*************************/
+    .tabs {
+        padding-left: 0px;
+    }
+
+    .tabs-header,.tabs-tool {
+        background-color: #f5f5f5;
+    }
+
+    .tabs-header {
+        border-width: 0px;
+        border-style: solid;
+        border-color: #f5f5f5;
+        border-bottom-width:0px;
+        border-bottom-color: #165e9f;
+    }
+
+    .tabs-panels {
+        border: 0px none;
+    }
+
+    .tabs li.tabs-selected {
+        /* background-color: #165e9f !important; */
+
+    }
+
+    .tabs li.tabs-selected a.tabs-inner {
+        background-color: #165e9f;
+        color: #ffffff;
+        background: -webkit-linear-gradient(top, #165e9f 0, #165e9f 100%);
+        background: -moz-linear-gradient(top, #165e9f 0, #165e9f 100%);
+        background: -o-linear-gradient(top, #165e9f 0, #165e9f 100%);
+        background: linear-gradient(to bottom, #165e9f 0, #66B3FF 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#165e9f,
+        endColorstr=#165e9f, GradientType=0);
+    }
+
+    .tabs li.tabs-selected a.tabs-inner {
+        border-bottom: 1px solid #165e9f;
+    }
+
+    .tabs-title {
+        font-size: 14px;
+    }
+
+    .tabs li.tabs-selected a.tabs-inner {
+        font-weight: normal;
+        outline: none;
+    }
+
+    .myBackGroug {
+        width: 100%;
+        height: 34px;
+        background-color: #f5f5f5;
+        /*border-bottom: 2px solid #165e9f;*/
+    }
+</style>
+<script type="application/javascript">
+    $(function(){
+        var oT = 0;
+        //二级菜单交互
+        $('.boxSize').click(function(){
+            $('.boxSize').removeClass('box_sizeOn');
+            if($(this).parents('.navBox').index() != oT){
+                $('.navMenuList').removeClass('leftMenu_on');
+            }
+            //$(this).removeClass('showBox_size');
+            $(this).parents('.navBox').siblings('.navBox').find('.navMenu').css('display','none');
+            if($(this).is('.showBox_size')){
+                $(this).removeClass('showBox_size').siblings('.navMenu').hide();
+            }else {
+                $('.boxSize').removeClass('showBox_size');
+                $(this).addClass('box_sizeOn showBox_size aaa').siblings('.navMenu').show();
+            }
+            oT = $(this).parents('.navBox').index();
         });
-    </script>
+
+    });
+
+    /** 点击左侧导航菜单 **/
+    function clickMenu(title, url, tab_id){
+        var pos = url.indexOf('/base-page/main/right.jsp');
+        if (pos == -1) {
+            top.addTab(title, url, tab_id);
+        }
+    }
+
+</script>
 </head>
 <body>
-<table>
-    <tr>
-        <td width="74%" height="38" class="admin_txt">管理员：<b></b>您好,感谢登陆使用！</td>
-    </tr>
-</table>
+<script>
+    Date.prototype.format = function (fmt) {
+        var o = {
+            "y+": this.getFullYear, //年
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds() //秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    };
+    setInterval("document.getElementById('dateTime').innerHTML = (new Date()).format('yyyy-MM-dd hh:mm:ss');", 1000);
+</script>
+<!--顶部菜单-->
+<div class="index_tit">
+    <div class="midCon">
+        <span class="pull-left"><div id="dateTime"></div></span>
+        <div class="titBtn pull-right">
+            <a href="/index.html" class="login">退出</a>
+        </div>
+    </div>
+</div>
+<div class="index_logo">
+    <div class="midCon">
+        <a href="#" class="logoIndex"><img src="/images/logo2.JPG" alt=""></a>
+
+    </div>
+</div>
+
+
+<div class="conPersonal">
+    <div class="midCon" style="width: 1345px; height:499px;overflow:hidden;margin:0 auto">
+        <!--左侧导航-->
+        <div class="my_Left_menu">
+            <span class="myPersonal_tit" onselectstart="return false">采购员管理中心</span>
+            <div class="my_Left_nav">
+                <!-查看仓库信息-->
+                <div class="navBox">
+                    <span class="boxSize">查看信息</span>
+                    <!--二级菜单-->
+                    <div class="navMenu noneBlock">
+                        <a href="javascript:" onclick="clickMenu('查看物品信息','/Buyer/Buyer_SelectAllItem.html')" class="navMenuList" data-info="con_rCk" data-id="parents_03">查看物品信息</a>
+                        <a href="javascript:" onclick="clickMenu('查看物品入库订单信息','/WarehouseAdmin/SelectAllGW.html')" class="navMenuList" data-info="con_rkSp" data-id="parents_03">查看物品入库订单信息</a>
+                        <a href="javascript:" onclick="clickMenu('查看仓库信息','/Buyer/Buyer_SelectAllWarehouse.html')" class="navMenuList" data-info="con_rkSp" data-id="parents_03">查看仓库信息</a>
+
+                    </div>
+                </div>
+                <!--修改管理-->
+                <div class="navBox">
+                    <span class="boxSize" onclick="clickMenu('已有物品入库','insert.html')"  class="navMenuList" data-info="con_lBy" data-id="parents_05">已有物品入库</span>
+
+                </div>
+                <div class="navBox">
+                    <span class="boxSize" onclick="clickMenu('新增物品入库','Buyer_insert.html')"  class="navMenuList" data-info="con_lBy" data-id="parents_05">新增物品入库</span>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!--右侧表格  -->
+        <div class="my_right_con" style="width: 1113px; float: left; margin-left: 20px">
+            <div class="container clearfix">
+                <div class="myBackGroug" style=""></div>
+                <div class="conMid" style="width:auto;height:auto;margin: -34px auto 0px;">
+                    <div id="tabs" class="easyui-tabs"  style="width:auto;height: 500px;">
+                        <div title="首页" id="Home" style="overflow: hidden;">
+                            <!--<iframe id="ifm_main" src="/Buyer/Buyer_SelectAllItem.html" frameborder="0" rows="*" cols="*" frameborder="no" border="0"
+                                    scrolling="no" width="100%" height="100%"></iframe>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        //底部下拉
+        $('.listBlock_all').click(function(){
+            $(this).find('.xl_List').toggle().parents('.listBlock_all').siblings('.listBlock_all').find('.xl_List').hide();
+        });
+        $('.xl_List a').click(function(){
+            var oHtml = $(this).text();
+            $(this).parents('.xl_List').siblings('.prevList').text(oHtml);
+        });
+        $(document).click(function(){
+            $(".xl_List").hide();
+        });
+        $(".listBlock_all").click(function(event){
+            event.stopPropagation();
+        });
+        //userName下拉
+        $('.mobileVersion').click(function(){
+            $('.userName_xl').toggle();
+        });
+        $(document).click(function(){
+            $(".userName_xl").hide();
+        });
+        $(".mobileVersion").click(function(event){
+            event.stopPropagation();
+        });
+        //内容切换
+        $('.my_Left_nav a').click(function(){
+            var oT = $(this).attr('data-show');
+            $(this).addClass('leftMenu_on').siblings('a').removeClass('leftMenu_on');
+            $('.personal_rightCon').each(function(){
+                if($(this).attr('id') == oT){
+                    $(this).css('display','block').siblings('.personal_rightCon').css('display','none');
+                    return false;
+                }
+            })
+        });
+
+        $('.personal_right_nav a').click(function(){
+            var oT = $(this).attr('data-info');
+            $(this).addClass('personal_r_aOn').siblings('a').removeClass('personal_r_aOn');
+            $('.PR_show_list').each(function(){
+                if($(this).attr('id') == oT){
+                    $(this).css('display','block').siblings('.PR_show_list').css('display','none');
+                    return false;
+                }
+            })
+        });
+    });
+
+</script>
 </body>
 </html>

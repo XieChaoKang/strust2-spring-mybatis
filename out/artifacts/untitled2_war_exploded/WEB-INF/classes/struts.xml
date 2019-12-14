@@ -15,49 +15,36 @@
     <constant name="struts.objectFactory" value="spring"/>
 
     <package name="Admin" extends="struts-default,json-default">
-
-        <action name="AdminLogin" class="action.AdminAction.AdminLogin" method="execute">
-            <result name="success" type="json">
-                <param name="root">jsonObject</param>
-            </result>
-        </action>
-
-        <action name="AdminRegister" class="action.AdminAction.AdminRegister" method="execute">
-            <!--<result name="success">/WarehouseAdmin/Admin_index.jsp</result>
-            <result name="error">/WarehouseAdmin/Admin_regist.html</result>-->
-            <result name="success" type="json">
-                <param name="root">jsonObject</param>
-            </result>
-        </action>
-
-        <action name="Admin_delete" class="action.AdminAction.Admin_Goods_warehouse_de" method="execute">
-            <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
-            <result name="error">/WarehouseAdmin/Admin_delete.jsp</result>
-        </action>
-
-        <action name="AllGW" class="action.AdminAction.AllIGW" method="test">
-          <!--  <result name="success" >/WarehouseAdmin/SelectAllItem.jsp</result>-->
+        <!-- 全局json -->
+        <global-results>
             <result name="success" type="json">
                 <param name="root">json</param>
             </result>
-        </action>
+        </global-results>
 
-        <action name="AllItem" class="action.AdminAction.AllItem" method="test">
-            <result name="success" type="json">
-                <param name="root">json</param>
-            </result>
-        </action>
+        <action name="AdminLogin" class="action.AdminAction.AdminLogin" method="execute" />
 
-        <action name="AllWarehouse" class="action.AdminAction.AllWarehouse" method="execute">
-            <result name="success" type="json">
-                <param name="root">json</param>
-            </result>
-        </action>
+        <action name="AdminRegister" class="action.AdminAction.AdminRegister" method="execute"/>
 
-        <action name="QueryAllItemByid" class="action.AdminAction.QueryItemByid" method="execute">
-            <result name="success">/WarehouseAdmin/Admin_index.jsp</result>
-            <result name="error">/WarehouseAdmin/Admin_index.jsp</result>
-        </action>
+        <action name="Admin_delete" class="action.AdminAction.Admin_Goods_warehouse_de" method="execute"/>
+
+        <action name="AllGW" class="action.AdminAction.AllIGW" method="test"/>
+
+        <action name="AllItem" class="action.AdminAction.AllItem" method="test"/>
+
+        <action name="AllWarehouse" class="action.AdminAction.AllWarehouse" method="execute"/>
+
+        <action name="QueryAllItemByid" class="action.AdminAction.QueryItemByid" method="execute"/>
+
+        <action name="De_ItemById" class="action.AdminAction.De_Item" method="execute"/>
+
+        <action name="Up_ItemById" class="action.AdminAction.Up_Item" method="execute"/>
+
+        <action name="De_WhById" class="action.AdminAction.De_Wh" method="execute" />
+
+        <action name="Up_WhById" class="action.AdminAction.Up_Wh" method="execute" />
+
+        <action name="whmoney" class="action.AdminAction.WhMoney" method="execute" />
 
     </package>
 
@@ -65,21 +52,25 @@
         <!-- 全局json -->
     <global-results>
         <result name="success" type="json">
-            <param name="root">jsonObject</param>
+            <param name="root">json</param>
         </result>
     </global-results>
 
-        <action name="Buyer_Login" class="action.BuyerAction.BuyerLogin" method="execute">
+        <action name="Buyer_Login" class="action.BuyerAction.BuyerLogin" method="execute" />
 
-        </action>
+        <action name="BuyerRegister" class="action.BuyerAction.BuyerRegister" method="execute" />
 
-        <action name="insert" class="action.BuyerAction.Buyer_Goods_warehouse_in" method="execute">
+        <action name="insert" class="action.BuyerAction.Buyer_Goods_warehouse_in" method="execute" />
 
-        </action>
+        <action name="Insert_newItem" class="action.BuyerAction.Insert_newItem" method="execute" />
 
-        <action name="Insert_newItem" class="action.BuyerAction.Insert_newItem" method="execute">
+        <action name="Se_ItemById1" class="action.BuyerAction.Se_ItemById" method="execute" />
 
-        </action>
+        <action name="Se_ItemById2" class="action.BuyerAction.Se_ItemById" method="sel" />
+
+        <action name="Buyer_AllItem" class="action.BuyerAction.Buyer_AllItem" method="test" />
+
+        <action name="Buyer_AllWarehouse" class="action.BuyerAction.Buyer_AllWarehouse" method="execute" />
 
     </package>
 

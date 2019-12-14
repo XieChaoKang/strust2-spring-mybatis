@@ -11,7 +11,7 @@ public class Warehouse {
     private String type;
 
     // 库存金额
-    private String inventory_amount;
+    private Integer inventory_amount;
 
     //物品 一对一关联查询
     private Item item;
@@ -36,6 +36,11 @@ public class Warehouse {
     }
 
     public Warehouse() {
+    }
+
+    public Warehouse(int id, Integer inventory_amount) {
+        this.id = id;
+        this.inventory_amount = inventory_amount;
     }
 
     public Warehouse(int id) {
@@ -67,11 +72,11 @@ public class Warehouse {
         this.type = type;
     }
 
-    public String getInventory_amount() {
+    public Integer getInventory_amount() {
         return inventory_amount;
     }
 
-    public void setInventory_amount(String inventory_amount) {
+    public void setInventory_amount(Integer inventory_amount) {
         this.inventory_amount = inventory_amount;
     }
 

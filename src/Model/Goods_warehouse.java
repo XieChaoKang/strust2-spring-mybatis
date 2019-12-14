@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.stream.Stream;
-
 //物品入库
 public class Goods_warehouse {
     private int number;//物品入库单编号

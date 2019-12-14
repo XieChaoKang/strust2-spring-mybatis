@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface QueryAllItem {
     List<Item> QueryAllItem();
+    List<Item> QueryItemByName(Item item);
 }

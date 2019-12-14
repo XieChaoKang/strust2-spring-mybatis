@@ -7,8 +7,17 @@
     		 resultType：返回数据类型,只能有一个
     		 parameterType：输入参数类型，只能有一个
     -->
+
+    <select id="AllAdmin" resultType="Admin">
+        SELECT * FROM Admin
+    </select>
+
     <!-- 管理员登录 -->
-    <select id="AdminLogin" resultType="Admin" parameterType="int">
+    <select id="AdminLogin" resultType="Admin" parameterType="Admin">
+        select * from Admin where id = #{id} and password = #{password}
+    </select>
+
+    <select id="Se_AdByid" resultType="Admin" parameterType="int">
         select * from Admin where id = #{id}
     </select>
 
@@ -20,6 +29,10 @@
     <!-- 查询所有物品 -->
     <select id="QueryAllItem" resultType="Item">
         SELECT * FROM Item
+    </select>
+
+    <select id="QueryItemByName" resultType="Item" parameterType="Item">
+        SELECT * FROM Item WHERE name = #{name}
     </select>
 
     <!-- 查询物品入库信息 -->
@@ -85,5 +98,27 @@
     <select id="QueryItemByW_num" resultType="Item" parameterType="int">
         SELECT * FROM Item WHERE warehouse_number = #{warehouse_number}
     </select>
+
+    <!--根据物品id删除该物品-->
+    <delete id="de_item" parameterType="int">
+        DELETE FROM Item WHERE id = #{id}
+    </delete>
+
+    <!--根据物品id修改该物品信息-->
+    <update id="ud_item" parameterType="Item">
+        UPDATE item SET name = #{name},measurement = #{measurement},warehouse_number = #{warehouse_number},quantity = #{quantity},
+        price = #{price} where id = #{id}
+    </update>
+
+    <!--根据仓库id删除该仓库-->
+    <delete id="de_Wh" parameterType="int">
+        DELETE FROM Warehouse WHERE id = #{id}
+    </delete>
+
+    <!--根据仓库id修改该仓库信息-->
+    <update id="ud_Wh" parameterType="Warehouse">
+        UPDATE Warehouse SET name = #{name},type = #{type},inventory_amount = #{inventory_amount}
+        where id = #{id}
+    </update>
 
 </mapper>

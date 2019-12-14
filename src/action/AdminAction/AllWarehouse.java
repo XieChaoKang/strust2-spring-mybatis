@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+//查询所有仓库信息 数据接口
 @Controller
 public class AllWarehouse extends ActionSupport {
     private int page;
@@ -55,8 +56,6 @@ public class AllWarehouse extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-
-        System.out.println("Warehouse");
 
         List<Warehouse> list = queryAllWarehouseImpl.selectAllWarehouse();
 

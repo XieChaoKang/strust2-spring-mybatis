@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询仓库金额</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../layui/layui.js"></script>
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+<script>
+    layui.use('table', function(){
+        var table = layui.table,
+            form=layui.form;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,even:true
+            ,url: 'action/AdminAction/whmoney.action' //数据接口
+            ,page: true //开启分页
+            ,limit:10
+            ,cols: [[ //表头
+                {field: 'average', title: '仓库平均金额', width:100}
+                ,{field: 'max', title: '最多库存金额', width:100}
+                ,{field: 'min', title: '最少库存金额', width:100}
+                ,{field: 'chao', title: '库存金额超过平均值的仓库数', width:177}
+            ]]
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-//删除仓库内的物品信息（根据入库单编号）
+//删除仓库内的入库订单信息（根据入库单编号）
 @Controller
 public class Admin_Goods_warehouse_de extends ActionSupport{
 
@@ -34,6 +34,7 @@ public class Admin_Goods_warehouse_de extends ActionSupport{
 
     @Override
     public String execute() throws Exception {
+        System.out.println("test");
         String result;
         int count = adminGoodsWarehouse.delete(goodsWarehouse);
         if (count != 0 )

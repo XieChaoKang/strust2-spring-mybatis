@@ -13,4 +13,20 @@
         INSERT INTO Item VALUES (#{id},#{name},#{measurement},#{warehouse_number},#{quantity},#{price})
     </insert>
 
+    <!-- 采购员注册 -->
+    <insert id="BuyerRegister" parameterType="Buyer">
+        INSERT INTO Buyer VALUES (#{id},#{password})
+    </insert>
+
+    <!-- 查询所有物品 -->
+    <select id="buyer_QueryAllItem" resultType="Item">
+        SELECT * FROM Item
+    </select>
+
+    <!-- 查询所有仓库信息 -->
+    <select id="buyer_selectAllWarehouse" resultType="Warehouse">
+        SELECT * FROM Warehouse
+    </select>
+
+
 </mapper>

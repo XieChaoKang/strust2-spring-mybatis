@@ -5,7 +5,7 @@ import Model.Goods_warehouse;
 import Service.AdminService.Admin_Goods_warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//service层 管理员删除订单信息
 @Service
 public class Admin_Goods_warehouseImpl implements Admin_Goods_warehouse {
 

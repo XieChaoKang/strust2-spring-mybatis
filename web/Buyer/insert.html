@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>采购员采购物品入库1</title>
+    <title>采购员采购物品入库1 该物品存在数据库</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
     <script>
@@ -14,7 +14,7 @@
 
                 //提交数据到后台处理
                 $.post('insert.action',data.field,function(data){
-                 //   console.log(data);
+                    console.log(data);
                     if(data.count > 0){
                         layer.close(loading);
                         //表格页面重载
@@ -41,12 +41,7 @@
             <input type="text" id="number" name="number" required style="width: 240px"  lay-verify="required" placeholder="请输入入库单编号" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="width: 100px">日期</label>
-        <div class="layui-input-block">
-            <input type="text" id="data" name="data" required  style="width: 240px" lay-verify="required" placeholder="请输入日期" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label" style="width: 100px">仓库编号</label>
         <div class="layui-input-block">

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class QueryItemByid extends ActionSupport {
 
-
     Warehouse warehouse = new Warehouse();
 
     public Warehouse getWarehouse() {

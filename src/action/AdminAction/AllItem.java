@@ -8,11 +8,33 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //查询所有物品信息 数据接口
 @Controller
 public class AllItem extends ActionSupport{
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private int page;
 
     public int getPage() {
@@ -55,15 +77,20 @@ public class AllItem extends ActionSupport{
     }
 
     public String test(){
-        System.out.println("ALLITEM");
+       // System.out.println(name);
+        List<Item> list;
+        if (name == null) {
+            list = queryAllItemImpl.QueryAllItem();
 
-        List<Item> list = queryAllItemImpl.QueryAllItem();
+            System.out.println(list);
+        }
+        else {
+            Item item = new Item(name);
+            list = queryAllItemImpl.QueryItemByName(item);
+        }
 
         // 通过该类解析成 Layer 表格能识别的Json数据
         json = LayerResult.getJson(list);
-
-        System.out.println(list);
-
         return SUCCESS;
     }
 

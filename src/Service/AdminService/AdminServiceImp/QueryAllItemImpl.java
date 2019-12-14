@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+//service层 管理员查询所有物品信息
 @Service
 public class QueryAllItemImpl implements QueryAllItem {
 
@@ -26,5 +26,10 @@ public class QueryAllItemImpl implements QueryAllItem {
     @Override
     public List<Item> QueryAllItem() {
         return adminMapper.QueryAllItem();
+    }
+
+    @Override
+    public List<Item> QueryItemByName(Item item) {
+        return adminMapper.QueryItemByName(item);
     }
 }

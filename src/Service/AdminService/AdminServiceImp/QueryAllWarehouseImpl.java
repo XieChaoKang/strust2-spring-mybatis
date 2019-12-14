@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+//service层 管理员仓库信息
 @Service
 public class QueryAllWarehouseImpl implements QueryAllWarehouse {
 

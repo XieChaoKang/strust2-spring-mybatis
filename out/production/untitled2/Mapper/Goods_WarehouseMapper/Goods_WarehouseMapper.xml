@@ -4,20 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Mapper.Goods_WarehouseMapper.Goods_WarehouseMapper">
 
+    <!-- 增加物品入库订单信息 -->
     <insert id="add" parameterType="Goods_warehouse">
         INSERT INTO Goods_warehouse VALUES (#{number},#{data},#{warehouse_number},#{item_number},#{quantity})
     </insert>
 
+    <!-- 删除物品入库订单信息 -->
     <delete id="delete" parameterType="int">
         DELETE FROM Goods_warehouse WHERE number = #{number}
     </delete>
 
+    <!-- 根据id查询该物品是否已存在 -->
     <select id="QueryItemByid" resultType="Item" parameterType="int">
         SELECT * FROM Item WHERE id = #{item_number}
     </select>
 
+    <!--采购员入库物品 该物品已存在-->
     <update id="UpdateItem" parameterType="Item">
         UPDATE Item SET quantity = #{quantity} where id = #{id}
+    </update>
+
+    <!-- 根据id查询该仓库的库存金额 -->
+    <select id="Se_WarehouseByid" parameterType="int" resultType="integer">
+        SELECT Warehouse.inventory_amount FROM Warehouse WHERE id = #{id}
+    </select>
+
+    <!-- 根据id修改该仓库的库存金额 -->
+    <update id="Up_WarehouseByid" parameterType="Warehouse">
+        UPDATE Warehouse SET inventory_amount = #{inventory_amount} where id = #{id}
     </update>
 
 </mapper>

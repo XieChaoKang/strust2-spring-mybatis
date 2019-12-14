@@ -2,7 +2,6 @@ package action.AdminAction;
 
 import Model.Goods_warehouse;
 import Service.AdminService.AdminServiceImp.QueryAllGWImpl;
-import Service.AdminService.AdminServiceImp.QueryAllItemImpl;
 import Util.LayerResult;
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
@@ -56,8 +55,6 @@ public class AllIGW extends ActionSupport{
     }
 
     public String test() {
-
-        System.out.println("scdddd");
 
         List<Goods_warehouse> list = queryAllGWImpl.QueryAllGW();
 

@@ -5,7 +5,7 @@ import Model.Admin;
 import Service.AdminService.AdminLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//service层 管理员登录
 @Service
 public class AdminLoginImp implements AdminLogin {
     @Autowired
@@ -21,6 +21,6 @@ public class AdminLoginImp implements AdminLogin {
 
     @Override
     public Admin AdminLogin(Admin admin) {
-        return adminMapper.AdminLogin(admin.getId());
+        return adminMapper.AdminLogin(admin);
     }
 }

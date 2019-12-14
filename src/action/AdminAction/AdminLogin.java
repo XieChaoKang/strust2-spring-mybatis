@@ -9,26 +9,28 @@ import Service.AdminService.AdminServiceImp.Seil_InsepectionImpl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //管理员登录 数据接口
 @Controller
 public class AdminLogin extends ActionSupport{
 
     //返回JSON数据
-    private JSONObject jsonObject;
-    public JSONObject getJsonObject() { return jsonObject; }
-    public void setJsonObject(JSONObject jsonObject) { this.jsonObject = jsonObject; }
+    private JSON json;
 
+    public JSON getJson() {
+        return json;
+    }
 
-    // private HttpServletRequest request = ServletActionContext.getRequest();
+    public void setJson(JSON json) {
+        this.json = json;
+    }
 
-   // SendMailTest sendMailTest = new SendMailTest();
     TestSendMail testSendMail = new TestSendMail();
 
     Admin admin = new Admin();
@@ -76,14 +78,20 @@ public class AdminLogin extends ActionSupport{
 
     @Override
     public String execute() throws Exception {
-      //  Self_Inspection();
+        int count;
+        System.out.println("test data");
+        //Self_Inspection();
         admin = adminLoginImp.AdminLogin(admin);
         System.out.println(admin);
-        jsonObject = JSON.parseObject(JSON.toJSONString(admin));
-        if (jsonObject != null)
-        {
-            ServletActionContext.getRequest().getSession().setAttribute("admin",admin);
+        if (admin != null){
+            count = 1;
         }
+        else {
+            count = 0;
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("count",count);
+        json = new JSONObject(map);
 
         return SUCCESS;
     }
